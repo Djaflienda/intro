@@ -1,20 +1,5 @@
 import Foundation
 
-extension FloatingPoint {
-    
-    var isInt: Bool {
-        floor(self) == self
-    }
-}
-
-extension BinaryFloatingPoint {
-    
-    func convertToWholeInt() -> Int? {
-        guard isInt, let intNumber = Int(exactly: self) else { return nil }
-        return intNumber
-    }    
-}
-
 //extension Optional where Wrapped == Int {
 extension Int {
     
@@ -25,7 +10,7 @@ extension Int {
     }
     
     func isFullyDevided<T: BinaryFloatingPoint>(by number: T) -> Bool {
-        guard let devider = number.convertToWholeInt() else { return false }
+        guard let devider = Int(exactly: number) else { return false }
         return self % devider == .zero
     }
     
@@ -42,7 +27,7 @@ for i in 0..<100 {
 }
 
 // 4. Удалить из этого массива все четные числа и все числа, которые не делятся на 3.
-//array.removeAll(where: { $0.isEven() || $0.isFullyDevided(by: 3) })
+array.removeAll(where: { $0.isEven() || $0.isFullyDevided(by: 3) })
 
 // 5. * Написать функцию, которая добавляет в массив новое число Фибоначчи, и добавить при помощи нее 50 элементов.
 extension Array where Element == Int {
