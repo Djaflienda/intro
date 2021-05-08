@@ -37,11 +37,13 @@ extension Array where Element == Int {
         return self[index]
     }
     
-    mutating func appendNextFibonachi() {
-        guard let last = last,
+    mutating func appendNextFibonachi(till: Int) {
+        guard till > .zero,
+              let last = last,
               let beforeLast = element(at: index(before: count - 1))
-              else { return }
+        else { return }
         self.append(last + beforeLast)
+        appendNextFibonachi(till: till - 1)
     }
     
     func isFibonachiPossible() -> Bool {
@@ -73,13 +75,12 @@ extension Array where Element == Int {
 [12, 30, 42].isFibonachiPossible()
 */
 
-var arrayFibo = [10, 34]
+var arrayFibo = [0, 1, 1]
 if arrayFibo.isFibonachiPossible() {
-    while arrayFibo.count < 50 {
-        arrayFibo.appendNextFibonachi()
-    }
+    arrayFibo.appendNextFibonachi(till: 50)
 }
 
+print(arrayFibo)
 // 6. * Заполнить массив из 100 элементов различными простыми числами.
 extension Int {
     /*
@@ -123,5 +124,3 @@ extension Int {
 
 array.removeAll(where: { !$0.isSimple() })
 print(array)
-
-
