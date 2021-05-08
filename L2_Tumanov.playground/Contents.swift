@@ -33,7 +33,7 @@ array.removeAll(where: { $0.isEven() || $0.isFullyDevided(by: 3) })
 extension Array where Element == Int {
     
     func element(at index: Int) -> Element? {
-        guard 0..<self.count ~= index else { return nil }
+        guard 0..<count ~= index else { return nil }
         return self[index]
     }
     
@@ -42,7 +42,9 @@ extension Array where Element == Int {
               let last = last,
               let beforeLast = element(at: index(before: count - 1))
         else { return }
-        self.append(last + beforeLast)
+        let additionResult = last.addingReportingOverflow(beforeLast)
+        guard !additionResult.overflow else { return }
+        append(additionResult.partialValue)
         appendNextFibonachi(till: till - 1)
     }
     
@@ -77,10 +79,11 @@ extension Array where Element == Int {
 
 var arrayFibo = [0, 1, 1]
 if arrayFibo.isFibonachiPossible() {
-    arrayFibo.appendNextFibonachi(till: 50)
+    arrayFibo.appendNextFibonachi(till: 5000)
 }
 
 print(arrayFibo)
+print(arrayFibo.count)
 // 6. * Заполнить массив из 100 элементов различными простыми числами.
 extension Int {
     /*
