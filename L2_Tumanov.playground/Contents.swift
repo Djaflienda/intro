@@ -84,6 +84,7 @@ if arrayFibo.isFibonachiPossible() {
 
 print(arrayFibo)
 print(arrayFibo.count)
+
 // 6. * Заполнить массив из 100 элементов различными простыми числами.
 extension Int {
     /*
@@ -125,5 +126,6 @@ extension Int {
     }
 }
 
-array.removeAll(where: { !$0.isSimple() })
+//array.removeAll(where: { !$0.isSimple() })
+array.allSatisfy { $0.isSimple() }
 print(array)
