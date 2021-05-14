@@ -129,3 +129,4 @@ extension Int {
 //array.removeAll(where: { !$0.isSimple() })
 array.allSatisfy { $0.isSimple() }
 print(array)
+
